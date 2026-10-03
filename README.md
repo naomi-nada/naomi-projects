@@ -1,36 +1,35 @@
 # naomi's workbench
 
-A small static site for public project working logs, project-specific Wiki pages, and quiet contact/channel links.
+My personal site for keeping track of projects, documenting the stuff I'm working on, and collecting the places you can find me online.
 
-## Structure
+It's intentionally simple. Just static HTML/CSS/JS, a couple small Python build scripts, and JSON for the bits of the site that are easier to maintain as data.
 
-- `index.html` — Workbench module and project selector.
-- `wiki/index.html` — Wiki module with a compact project dropdown.
-- `wiki/<project-id>.html` — project Wiki landing pages.
-- `channels.html` — compact links/contact module.
-- `assets/site-shell.css` — shared module tabs, headers, project index, palette, and page geometry.
-- `assets/workbench.css` — working-log and weekly-update styling.
-- `assets/channels.css` — compact channel rows.
-- `wiki/assets/wiki.css` — Wiki indexes, source catalog, and detail pages.
-- `data/site.json` / `data/updates.json` — weekly update timing and current additions.
-- `wiki/data/effects.json` / `modifiers.json` / `projects.json` — Wiki source data.
-- `tools/build_wiki.py` — rebuilds generated Wiki pages.
-- `tools/build_site_state.py` — rebuilds the browser-readable weekly update state.
+## what's here
 
-## Modules
+- `index.html` — the main Workbench and project logs.
+- `wiki/` — project reference pages and the Wiki.
+- `channels.html` — links to my stuff elsewhere.
+- `assets/` — shared CSS, JavaScript, icons, and other site assets.
+- `data/` — Workbench update/timing data.
+- `wiki/data/` — source data used to build the Wiki.
+- `tools/build_wiki.py` — rebuilds the generated Wiki pages.
+- `tools/build_site_state.py` — rebuilds the browser-readable Workbench update data.
 
-The top-level navigation is intentionally small: `naomi's workbench`, `wiki`, and `channels`. Effects, Modifiers, and Vanilla Set are categories inside the Nada Vfx Wiki, not separate site modules.
+## how it's organized
 
-The module tabs share one paper-file/tab treatment. Blue, green, and magenta identify the module; the content beneath them stays mostly neutral so the site reads as one system.
+The site has three main sections:
 
-## Project selection
+- **naomi's workbench** — what I'm currently working on, what's finished, and what's coming next.
+- **wiki** — reference material for individual projects.
+- **channels** — places to find my work or reach me.
 
-Workbench keeps Active projects first with Archived projects directly underneath, then reveals the selected project's working log. The Wiki home stays intentionally minimal: choose a project from the Active/Archived dropdown, then move to that project's own Wiki landing page.
+Right now the Wiki is mostly focused on **Nada Vfx**, with pages for its effects, modifiers, and the vanilla Valheim assets they're built from.
 
-## Weekly update
+## updating the site
 
-`NEXT UPDATE` is a compact status-style control. Hover it for the short explanation; click/tap also works because it is a `<details>` element. `NEW THIS WEEK` is separate and every item links directly to the page that changed.
+Most normal page changes can just be edited directly.
 
-## Wiki links in the working log
+If I change the Wiki data in `wiki/data/`, I run:
 
-When a thing mentioned in the working log already has a Wiki entry, the name links to that entry. The links are intentionally quiet so the log is still readable on its own.
+```bash
+python3 tools/build_wiki.py
