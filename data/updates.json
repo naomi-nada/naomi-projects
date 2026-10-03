@@ -1,0 +1,23 @@
+{
+  "published": "2026-10-02T20:00:00-04:00",
+  "items": [
+    {
+      "key": "effect:electricity",
+      "title": "Electricity",
+      "text": "Added the upcoming standalone effect to the Wiki.",
+      "href": "wiki/effects/electricity.html"
+    },
+    {
+      "key": "effect:skulls",
+      "title": "Skulls",
+      "text": "Added the upcoming Orbital to the Wiki.",
+      "href": "wiki/effects/skulls.html"
+    },
+    {
+      "key": "effect:crosses",
+      "title": "Crosses",
+      "text": "Added the upcoming Orbital to the Wiki.",
+      "href": "wiki/effects/crosses.html"
+    }
+  ]
+}

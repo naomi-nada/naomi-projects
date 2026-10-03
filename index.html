@@ -1,0 +1,549 @@
+<!doctype html>
+<!--
+  naomi's workbench
+  -----------------
+  Static on purpose: easy to inspect, easy to host, and easy to move later.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>naomi's workbench — Nada Vfx</title>
+  <meta name="description" content="Public working logs for Naomi Nada's projects." />
+  <meta property="og:title" content="naomi's workbench" />
+  <meta property="og:description" content="Public working logs for my projects." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site-shell.css" />
+  <link rel="stylesheet" href="assets/workbench.css" />
+  <script defer src="assets/site-state.js"></script>
+  <script defer src="assets/site.js"></script>
+</head>
+<body class="workbench-page">
+  <main class="page">
+    <nav class="module-tabs" aria-label="Modules">
+      <a class="module-tab workbench active" href="index.html" aria-current="page">naomi's workbench</a>
+      <a class="module-tab wiki" href="wiki/index.html">wiki</a>
+      <a class="module-tab channels" href="channels.html">channels</a>
+    </nav>
+
+    <header class="module-header">
+      <div class="module-title-row">
+        <span class="module-icon module-icon-emoji" aria-hidden="true">🛠️</span>
+        <h1 class="module-title">naomi's workbench</h1>
+      </div>
+      <p class="module-description">Public working logs for my projects.</p>
+    </header>
+
+    <section class="project-browser" aria-label="Projects">
+      <div class="project-groups">
+        <div>
+          <p class="project-group-label">Active</p>
+          <div class="project-cards">
+            <button class="project-card" type="button" aria-pressed="true" data-project-select="nada-vfx">
+              <img class="project-card-icon" src="assets/ui/wisp.png" alt="" aria-hidden="true" />
+              <span class="project-card-name">Nada Vfx</span>
+              <span class="project-card-status">Active</span>
+            </button>
+            <button class="project-card" type="button" aria-pressed="false" data-project-select="the-industry">
+              <img class="project-card-icon" src="assets/ui/project-industry.svg" alt="" aria-hidden="true" />
+              <span class="project-card-name">The Industry TCG</span>
+              <span class="project-card-status">Active</span>
+            </button>
+          </div>
+        </div>
+        <div>
+          <p class="project-group-label">Archived</p>
+          <div class="project-cards">
+            <button class="project-card archived" type="button" aria-pressed="false" data-project-select="new-world-season-7">
+              <img class="project-card-icon" src="assets/ui/project-new-world.svg" alt="" aria-hidden="true" />
+              <span class="project-card-name">New World Season 7</span>
+              <span class="project-card-status">Archived</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-panel" data-project-panel="nada-vfx">
+      <div class="project-overview">
+      <div class="project-intro">
+        <p class="project-label">Project</p>
+        <h2 class="project-title">Nada Vfx</h2>
+        <p class="project-label">Project description</p>
+        <p class="project-description">Nada Vfx is my runtime VFX system for Valheim. Instead of shipping a pile of custom effects or shaders, it reuses vanilla VFX and assets that Valheim already has loaded in memory, rebuilds them at runtime, and lets you customize them. The mod aims to be lightweight, modular, and easy to extend.</p>
+      </div>
+
+        <section class="update-tools" aria-label="Workbench update summary">
+          <section class="weekly-update-card" data-weekly-update-section hidden>
+            <div class="weekly-update-head">
+              <span class="weekly-update-badge">New this week</span>
+            </div>
+            <div class="weekly-update-list" data-weekly-update-list></div>
+          </section>
+
+          <details class="next-update-card">
+            <summary>
+              <span class="next-update-label">Next update</span>
+              <span class="next-update-time" data-next-update-timer>—</span>
+            </summary>
+            <p class="next-update-tooltip">I update the Workbench roughly once a week with whatever actually moved forward — finished work, new Wiki entries, clips, or other useful additions.</p>
+          </details>
+        </section>
+      </div>
+
+
+      <section class="lane">
+      <div class="lane-header">
+        <h2>Done</h2>
+      </div>
+      <p class="lane-note">Completed work that has been tested and verified.</p>
+
+      <article class="group">
+        <div class="group-head">
+          <div class="group-head-row">
+            <h3>Block runtime foundation</h3>
+            <span class="status done">Done</span>
+          </div>
+          <p class="group-summary">
+            The migrated runtime now uses ordered effect blocks with stable instance
+            IDs. This lets you reuse, reorder, get rid of, and have
+            multiple copies of the same effect possible without special-case slots.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>Migrated effects</h4>
+          <span class="status done">Done</span>
+          <ul class="subtasks">
+            <li class="complete"><a class="wiki-entry-link" href="wiki/effects/inner-flames.html">Inner Flames</a></li>
+            <li class="complete"><a class="wiki-entry-link" href="wiki/effects/outer-flames.html">Outer Flames</a></li>
+            <li class="complete"><a class="wiki-entry-link" href="wiki/effects/strands.html">Strands</a></li>
+            <li class="complete"><a class="wiki-entry-link" href="wiki/effects/sparks.html">Sparks</a></li>
+            <li class="complete"><a class="wiki-entry-link" href="wiki/effects/flare.html">Flare</a></li>
+            <li class="complete"><a class="wiki-entry-link" href="wiki/effects/aura.html">Aura</a></li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+
+    <section class="lane">
+      <div class="lane-header">
+        <h2>Current</h2>
+      </div>
+      <p class="lane-note">Work I'm actively changing or testing.</p>
+
+      <article class="group">
+        <div class="group-head">
+          <div class="group-head-row">
+            <h3>Orbitals</h3>
+            <span class="status in-progress">In progress</span>
+          </div>
+          <p class="group-summary">
+            This is the main runtime work right now. Orbitals are being moved out
+            of the old shared setup so each effect can own its own runtime instance.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4><a class="wiki-entry-link" href="wiki/effects/orbs.html">Orbs</a> — block runtime migration</h4>
+          <span class="status in-progress">In progress</span>
+          <p>
+            Orbs now own their typed state, visuals, motion, motion root, and
+            follower pool. Local and dropped-item behavior are working; the last
+            piece is making remote multiplayer use that same instance-owned path.
+          </p>
+          <ul class="subtasks">
+            <li class="complete">Typed block state</li>
+            <li class="complete">Visual behavior</li>
+            <li class="complete">Motion behavior</li>
+            <li class="complete">Local runtime ownership</li>
+            <li class="complete">Dropped-item lifecycle</li>
+            <li class="current">Remote multiplayer ownership</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <h4>Remaining Orbitals — <a class="wiki-entry-link" href="wiki/effects/cores.html">Cores</a>, <a class="wiki-entry-link" href="wiki/effects/orbital-flames.html">Flames</a>, <a class="wiki-entry-link" href="wiki/effects/embers.html">Embers</a></h4>
+          <span class="status planned">Planned</span>
+          <p>
+            Once Orbs are done, Cores, Flames, and Embers get the same treatment
+            as one larger pass. When that lands, the old shared Orbitals runtime
+            should finally be able to go away.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>Patterns</h4>
+          <span class="status planned">Planned</span>
+          <p>
+            Give each Orbital a starting motion pattern instead of forcing
+            everything onto the same basic loop. Things like Spiral, Helix,
+            Figure Eight, or No Path could all be starting points.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>No Path / stationary Orbitals</h4>
+          <span class="status planned">Planned</span>
+          <p>
+            No Path would basically turn an Orbital into a stationary standalone
+            effect. You could still move and rotate it, while path controls like
+            Radius, Cycles, Speed, and Spacing would switch off.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>Preserve path phase</h4>
+          <span class="status planned">Planned</span>
+          <p>
+            If a bound Orbital is sitting at a specific point on its path, it
+            shouldn't jump back to the start every time the rig is rebuilt. The
+            goal is to remember enough path state to resume where it left off.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>Length range</h4>
+          <span class="status planned">Planned</span>
+          <p>
+            Bring the minimum Orbitals Length down so the same path controls are
+            actually useful on smaller weapons and held items.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="lane">
+      <div class="lane-header">
+        <h2>Next</h2>
+      </div>
+      <p class="lane-note">Work I plan to start after the current milestone is stable.</p>
+
+      <article class="group">
+        <div class="group-head">
+          <div class="group-head-row">
+            <h3>Effect stack / editor workflow</h3>
+            <span class="status planned">Planned</span>
+          </div>
+          <p class="group-summary">
+            The runtime is becoming a proper building-block system, so the manager
+            should reflect that when using the mod.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>Add effects from a list</h4>
+          <span class="status planned">Planned</span>
+          <p>
+            Rather than showing a full page of every effect all the time, you add
+            the effects you actually want from a list and build the rig from there.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>Duplicate, remove, and reorder effect instances</h4>
+          <span class="status planned">Planned</span>
+          <p>
+            The editor should let you add the same effect more than once, tune
+            each copy separately, remove it, and drag it around in the stack. The
+            list order should be the runtime order.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>Copy Bound Rig</h4>
+          <span class="status planned">Planned</span>
+          <p>
+            Grab the VFX state from a bound weapon and load it into the editor.
+            That makes an existing rig an easy starting point instead of something
+            you have to recreate by hand.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>Clear Effects</h4>
+          <span class="status planned">Planned</span>
+          <p>
+            One button to clear the current setup instead of switching every
+            effect off one at a time.
+          </p>
+        </div>
+      </article>
+
+      <article class="group">
+        <div class="group-head">
+          <div class="group-head-row">
+            <h3>Public API</h3>
+            <span class="status planned">Planned</span>
+          </div>
+          <p class="group-summary">
+            I think the API stays small. Other mods have the option to tell NADA what VFX state
+            they want without needing to know anything about the editor, config
+            entries, hierarchy, or persistence.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>API goal</h4>
+          <span class="status planned">Planned</span>
+          <p>
+            Other mods keep ownership of their gameplay logic. They hand
+            NADA a resolved style or state, and NADA handles rendering, attachment,
+            reconciliation, persistence-facing behavior, and cleanup.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>Target surface</h4>
+          <span class="status planned">Planned</span>
+          <p>
+            Keep the public surface boring on purpose. ^-^ Right now it just needs a few clear state-first
+            entry points. Doesn't need to expose the whole runtime.
+          </p>
+          <div class="code">ApplyStyle(itemData, style)
+ApplyState(itemData, WeaponVfxState)
+Remove(itemData)</div>
+        </div>
+
+        <div class="item">
+          <h4>Do not expose runtime internals</h4>
+          <span class="status planned">Planned</span>
+          <p>
+            Callers shouldn't need ConfigEntry objects, raw custom-data keys,
+            rig GameObjects, hierarchy knowledge, or any of the old flat-state
+            assumptions. Those stay internal.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="lane">
+      <div class="lane-header">
+        <h2>Backlog</h2>
+      </div>
+      <p class="lane-note">Other fixes, features, and investigations I plan to come back to.</p>
+
+      <article class="group">
+        <div class="group-head">
+          <div class="group-head-row">
+            <h3><a class="wiki-entry-link" href="wiki/effects/sparks.html">Sparks</a></h3>
+            <span class="status investigating">Investigating</span>
+          </div>
+          <p class="group-summary">
+            Sparks mostly works but needs another pass to address the bits that still
+            feel wrong in normal use.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>Default emission</h4>
+          <span class="status planned">Planned</span>
+          <p>The default emission is just too busy right now. Bring it down so Sparks starts from a cleaner baseline.</p>
+        </div>
+
+        <div class="item">
+          <h4>Width / length behavior</h4>
+          <span class="status investigating">Investigating</span>
+          <p>
+            Lowering Width currently breaks the effect into little separated bands,
+            almost like frets on a guitar neck, instead of simply making it narrower.
+            Length may be doing something similar, so both need a proper look.
+          </p>
+        </div>
+      </article>
+
+      <article class="group">
+        <div class="group-head">
+          <div class="group-head-row">
+            <h3><a class="wiki-entry-link" href="wiki/effects/strands.html">Strands</a></h3>
+            <span class="status investigating">Investigating</span>
+          </div>
+          <p class="group-summary">
+            Strands needs a smaller default size and a less extreme Drift response.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>Baseline size</h4>
+          <span class="status planned">Planned</span>
+          <p>
+            The whole Strands setup starts way too large compared with the other
+            effects. Just need to shrink the baseline so the default is sensible.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>Drift curve</h4>
+          <span class="status investigating">Investigating</span>
+          <p>
+            Drift basically goes from off to chaos the moment it moves above 0%.
+            I want that curve to come in gradually. Basically what 1% does now should be the highest end behavior.
+          </p>
+        </div>
+      </article>
+
+      <article class="group">
+        <div class="group-head">
+          <div class="group-head-row">
+            <h3><a class="wiki-entry-link" href="wiki/effects/inner-flames.html">Inner</a> + <a class="wiki-entry-link" href="wiki/effects/outer-flames.html">Outer Flames</a></h3>
+            <span class="status planned">Planned</span>
+          </div>
+          <p class="group-summary">
+            Mostly a range issue: the current controls top out too early on long weapons.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>Maximum flame length</h4>
+          <span class="status planned">Planned</span>
+          <p>
+            Raise the max Length for both flame effects so they can actually span
+            longer swords, polearms, and other oversized weapon shapes.
+          </p>
+        </div>
+      </article>
+
+      <article class="group">
+        <div class="group-head">
+          <div class="group-head-row">
+            <h3>Missing visuals / alternate weapon contexts</h3>
+            <span class="status investigating">Investigating</span>
+          </div>
+          <p class="group-summary">
+            A lot of these aren't state bugs at all: Valheim swaps, disables, or
+            replaces the object that's actually being rendered. NADA needs to follow
+            the real visual instance instead of assuming the equipped object survives.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>Back-slot visuals</h4>
+          <span class="status investigating">Investigating</span>
+          <p>
+            Bound weapons and shields can lose their rig when Valheim moves them
+            to the character's back. That needs its own supported visual context.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>Dropped weapon visuals</h4>
+          <span class="status investigating">Investigating</span>
+          <p>
+            Dundr is a confirmed case so far: it looks fine while equipped, then
+            loses the rig when dropped, while the Blackmetal Pickaxe works in the
+            same test. This probably isn't unique to Dundr, so other odd weapon
+            prefabs need checking too. The main suspects are the dropped visual root,
+            ItemDrop hierarchy, identity resolution, and attachment target.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>Crossbows / Grappling Hook</h4>
+          <span class="status investigating">Investigating</span>
+          <p>
+            The Grappling Hook can bind, but its alignment is wrong, the VFX vanish
+            during reload, and the dropped version has no rig. Crossbows likely share
+            some of that lifecycle, so the next step is checking what Valheim swaps
+            or disables during reload.
+          </p>
+        </div>
+
+        <div class="item">
+          <h4>Throwables & Projectiles</h4>
+          <span class="status investigating">Investigating</span>
+          <p>
+            A bound spear loses the visible rig while it's in flight, then gets it
+            back once it lands as a dropped item. I think throwable/projectile visuals should
+            be treated as their own runtime context without mixing that up with the
+            persisted state on the item.
+          </p>
+        </div>
+      </article>
+
+      <article class="group">
+        <div class="group-head">
+          <div class="group-head-row">
+            <h3>Item lifecycle</h3>
+            <span class="status investigating">Investigating</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h4>Upgrades losing bound state</h4>
+          <span class="status investigating">Investigating</span>
+          <p>
+            Upgrading the quality of a bound item wipes the rig. My guess is
+            Valheim is replacing the underlying ItemData so almost certainly need something to carry over the saved
+            VFX state to the upgraded item automatically.
+          </p>
+        </div>
+      </article>
+
+      <article class="group">
+        <div class="group-head">
+          <div class="group-head-row">
+            <h3>Manager / feedback</h3>
+            <span class="status planned">Planned</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h4>Attach / Bind / Unbind feedback</h4>
+          <span class="status planned">Planned</span>
+          <p>
+            Attach, Bind, and Unbind should give a quick on-screen confirmation so
+            you always know the action actually happened. Failures should be just as clear.
+          </p>
+        </div>
+      </article>
+
+      <article class="group">
+        <div class="group-head">
+          <div class="group-head-row">
+            <h3>Gameplay-adjacent VFX</h3>
+            <span class="status planned">Planned</span>
+          </div>
+        </div>
+
+        <div class="item">
+          <h4>Hit-effect attachments</h4>
+          <span class="status planned">Planned</span>
+          <p>
+            Let holdables and projectiles opt into damage/abilities like burning, freezing or a weapon specific hit-effects like Himminafl lightning strike, with things like color still customizable. API lets mods handle logic as well.
+          </p>
+        </div>
+      </article>
+    </section>
+  
+    </section>
+
+    <section class="project-panel" data-project-panel="the-industry" hidden>
+      <div class="project-intro">
+        <p class="project-label">Project</p>
+        <h2 class="project-title">The Industry TCG</h2>
+        <p class="project-label">Project description</p>
+        <p class="project-description">The Industry TCG is active, but I don't have a public working log for it here yet.</p>
+      </div>
+      <div class="project-empty">Nothing to track here yet. I'll add the working log when I have something useful to show.</div>
+    </section>
+
+    <section class="project-panel" data-project-panel="new-world-season-7" hidden>
+      <div class="project-intro">
+        <p class="project-label">Project</p>
+        <h2 class="project-title">New World Season 7</h2>
+        <p class="project-label">Project description</p>
+        <p class="project-description">This redesign project is complete and archived. I haven't added a working log for it here.</p>
+      </div>
+    </section>
+
+    <footer class="site-footer" aria-label="Copyright and attribution">
+      <p>© 2026 Naomi Nada · original content unless otherwise noted.</p>
+    </footer>
+  </main>
+</body>
+</html>

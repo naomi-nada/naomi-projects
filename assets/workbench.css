@@ -1,0 +1,375 @@
+/*
+  Workbench
+  ---------
+  Public working log. Dense on purpose: the information is primary; containers are not.
+*/
+
+.status,
+.next-update-card summary,
+.weekly-update-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 22px;
+  padding: 3px 7px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: rgba(255,255,255,.012);
+  font: 750 .59rem/1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  letter-spacing: .065em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.status::before,
+.next-update-label::before,
+.weekly-update-badge::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 1px;
+  background: currentColor;
+  opacity: .9;
+}
+
+.status.in-progress {
+  color: var(--yellow);
+  border-color: rgba(232,203,114,.24);
+  background: rgba(232,203,114,.025);
+}
+
+.status.investigating {
+  color: var(--blue);
+  border-color: rgba(105,183,255,.23);
+  background: rgba(105,183,255,.025);
+}
+
+.status.planned {
+  color: var(--cyan);
+  border-color: rgba(75,220,241,.22);
+  background: rgba(75,220,241,.022);
+}
+
+.status.done {
+  color: var(--green);
+  border-color: rgba(115,233,174,.22);
+  background: rgba(115,233,174,.022);
+}
+
+/* Update information sits above the selected project like a quiet index strip. */
+.update-tools {
+  display: grid;
+  gap: 9px;
+  align-items: start;
+  width: min(100%, 560px);
+  margin: 2px 0 22px;
+}
+
+.next-update-card {
+  position: relative;
+  width: fit-content;
+}
+
+.next-update-card summary {
+  cursor: pointer;
+  list-style: none;
+  color: var(--blue);
+  border-color: rgba(105,183,255,.2);
+  background: rgba(105,183,255,.018);
+  font-size: .56rem;
+}
+
+.next-update-card summary::-webkit-details-marker { display: none; }
+
+.next-update-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.next-update-time {
+  margin-left: 2px;
+  padding-left: 8px;
+  border-left: 1px solid rgba(105,183,255,.14);
+  color: #eaf4ff;
+  font-weight: 800;
+  letter-spacing: .03em;
+}
+
+.next-update-tooltip {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 6px);
+  z-index: 10;
+  width: min(300px, calc(100vw - 48px));
+  margin: 0;
+  padding: 9px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  background: rgba(9,12,18,.98);
+  color: var(--muted);
+  font-size: .72rem;
+  line-height: 1.45;
+  box-shadow: 0 10px 24px rgba(0,0,0,.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-2px);
+  transition: opacity .12s ease, transform .12s ease, visibility .12s ease;
+}
+
+.next-update-card:hover .next-update-tooltip,
+.next-update-card:focus-within .next-update-tooltip,
+.next-update-card[open] .next-update-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.weekly-update-card {
+  min-width: 0;
+  width: 100%;
+  max-width: 560px;
+  border: 1px solid rgba(255,79,216,.18);
+  border-radius: 8px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255,79,216,.018), transparent 58%);
+}
+
+.weekly-update-card[hidden] { display: none; }
+
+.weekly-update-head {
+  padding: 7px 8px 6px;
+  border-bottom: 1px solid rgba(255,79,216,.14);
+}
+
+.weekly-update-badge {
+  min-height: 20px;
+  padding: 2px 6px;
+  color: var(--magenta);
+  border-color: rgba(255,79,216,.18);
+  background: rgba(255,79,216,.018);
+  font-size: .56rem;
+}
+
+.weekly-update-list {
+  display: grid;
+}
+
+.weekly-update-link {
+  display: grid;
+  grid-template-columns: minmax(92px, .34fr) minmax(0, 1.66fr);
+  gap: 10px;
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--line);
+  transition: background .12s ease;
+}
+
+.weekly-update-link:last-child { border-bottom: 0; }
+.weekly-update-link:hover { background: rgba(105,183,255,.02); }
+
+.weekly-update-title {
+  color: #edf5ff;
+  font-size: .7rem;
+  font-weight: 700;
+}
+
+.weekly-update-note {
+  color: var(--muted);
+  font-size: .7rem;
+  line-height: 1.34;
+}
+
+/* DONE / CURRENT / NEXT / BACKLOG */
+.lane { margin-top: 34px; }
+
+.lane-header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 11px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.lane-header h2 {
+  margin: 0;
+  color: var(--blue);
+  font: 750 .7rem ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.lane-header::after {
+  content: "";
+  height: 1px;
+  background: linear-gradient(90deg, rgba(75,220,241,.34), rgba(169,140,255,.13), rgba(255,79,216,.09), var(--line));
+}
+
+.lane-note {
+  margin: -2px 0 12px;
+  color: var(--muted);
+  font-size: .76rem;
+}
+
+/* A group is a section in the file, not a floating card. */
+.group {
+  margin-top: 18px;
+  border: 0;
+  border-top: 1px solid var(--line-strong);
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
+}
+
+.group:first-of-type { margin-top: 0; }
+
+.group-head {
+  padding: 11px 5px 10px;
+  background: linear-gradient(90deg, rgba(75,220,241,.035), rgba(169,140,255,.018) 48%, transparent 72%);
+  border-bottom: 1px solid var(--line);
+}
+
+.group-head-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.group h3 {
+  margin: 0;
+  color: var(--violet);
+  font-size: .91rem;
+  line-height: 1.3;
+}
+
+.group-summary {
+  margin: 4px 0 0;
+  max-width: 760px;
+  color: var(--muted);
+  font-size: .79rem;
+  line-height: 1.45;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 7px 14px;
+  align-items: start;
+  padding: 10px 6px 10px 14px;
+  border-top: 1px solid rgba(35,42,54,.82);
+}
+
+.item:first-child { border-top: 0; }
+
+.item h4 {
+  margin: 0;
+  color: #dcebf4;
+  font-size: .84rem;
+  line-height: 1.32;
+}
+
+.item p {
+  grid-column: 1 / -1;
+  margin: -1px 0 0;
+  max-width: 800px;
+  color: var(--muted);
+  font-size: .78rem;
+  line-height: 1.46;
+}
+
+.subtasks {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  list-style: none;
+}
+
+.subtasks li {
+  position: relative;
+  padding-left: 22px;
+  color: #b3bdca;
+  font: .72rem ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.subtasks li::before {
+  position: absolute;
+  left: 0;
+  color: var(--dim);
+  content: "[ ]";
+}
+
+.subtasks li.complete { color: var(--muted); }
+.subtasks li.complete::before { content: "[x]"; color: var(--green); }
+.subtasks li.current::before { content: "[~]"; color: var(--yellow); }
+
+.code {
+  grid-column: 1 / -1;
+  margin: 2px 0 0;
+  padding: 9px 11px;
+  overflow-x: auto;
+  border-left: 2px solid var(--line-strong);
+  background: #090c12;
+  color: #b8c3cf;
+  font: .71rem/1.52 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  white-space: pre;
+}
+
+/* Workbench-to-Wiki cross-links stay useful without becoming another visual layer. */
+.wiki-entry-link {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: rgba(105,183,255,.3);
+  text-underline-offset: 3px;
+}
+
+.wiki-entry-link:hover {
+  color: var(--blue);
+  text-decoration-color: var(--blue);
+}
+
+@media (max-width: 760px) {
+  .update-tools { width: 100%; }
+  .weekly-update-card { max-width: none; }
+  .next-update-card { width: fit-content; }
+  .next-update-card summary { width: fit-content; }
+}
+
+@media (max-width: 620px) {
+  .item { grid-template-columns: 1fr; padding-left: 7px; }
+  .item .status { justify-self: start; }
+  .group-head-row { align-items: flex-start; }
+  .weekly-update-link { grid-template-columns: 1fr; gap: 2px; }
+}
+
+/* Selected-project summary: project identity on the left, update utility on the right. */
+.project-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 54px);
+  align-items: start;
+  margin: 0 0 28px;
+}
+
+.project-overview .project-intro {
+  min-width: 0;
+  height: 100%;
+}
+
+.project-overview .update-tools {
+  width: 100%;
+  margin: 0;
+}
+
+.project-overview .weekly-update-card {
+  max-width: none;
+}
+
+@media (max-width: 860px) {
+  .project-overview {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
