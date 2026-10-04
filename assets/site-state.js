@@ -12,19 +12,19 @@ window.NADA_WORKBENCH_STATE = {
         "key": "effect:electricity",
         "title": "Electricity",
         "text": "Added the upcoming standalone effect to the Wiki.",
-        "href": "wiki/effects/electricity.html"
+        "href": "wiki/vanilla-set/electricity.html"
       },
       {
         "key": "effect:skulls",
         "title": "Skulls",
         "text": "Added the upcoming Orbital to the Wiki.",
-        "href": "wiki/effects/skulls.html"
+        "href": "wiki/vanilla-set/skulls.html"
       },
       {
         "key": "effect:crosses",
         "title": "Crosses",
         "text": "Added the upcoming Orbital to the Wiki.",
-        "href": "wiki/effects/crosses.html"
+        "href": "wiki/vanilla-set/crosses.html"
       }
     ]
   }

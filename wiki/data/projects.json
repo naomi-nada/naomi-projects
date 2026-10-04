@@ -4,7 +4,7 @@
     "name": "Nada Vfx",
     "status": "active",
     "icon": "wisp.png",
-    "description": "Runtime VFX reference for effects, modifiers, and the vanilla sources they are built from."
+    "description": "Runtime vfx reference for modifiers and the vanilla sources Nada Vfx rebuilds."
   },
   {
     "id": "the-industry",

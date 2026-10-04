@@ -2,7 +2,7 @@
 
 My personal site for keeping track of projects, documenting the stuff I'm working on, and collecting the places you can find me online.
 
-It's intentionally simple. Just static HTML/CSS/JS, a couple small Python build scripts, and JSON for the bits of the site that are easier to maintain as data.
+It's intentionally pretty simple. Just static HTML/CSS/JS, a couple small Python build scripts, and JSON for the bits of the site that are easier to maintain as data.
 
 ## what's here
 
@@ -23,7 +23,7 @@ The site has three main sections:
 - **wiki** — reference material for individual projects.
 - **channels** — places to find my work or reach me.
 
-Right now the Wiki is mostly focused on **Nada Vfx**, with pages for its effects, modifiers, and the vanilla Valheim assets they're built from.
+Right now the Wiki is mostly focused on **Nada Vfx**, with pages for its modifiers and the vanilla Valheim sources it rebuilds. The Vanilla Set is the effect catalog, so availability like **Upcoming** lives there instead of in a separate Effects section.
 
 ## updating the site
 
@@ -33,3 +33,12 @@ If I change the Wiki data in `wiki/data/`, I run:
 
 ```bash
 python3 tools/build_wiki.py
+```
+
+If I change `data/site.json` or `data/updates.json`, I run:
+
+```bash
+python3 tools/build_site_state.py
+```
+
+Then I check everything locally, commit it, and push it.

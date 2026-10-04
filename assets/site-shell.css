@@ -47,10 +47,10 @@ body {
   position: relative;
   color: var(--text);
   background:
-          radial-gradient(circle at 88% -8%, rgba(255,79,216,.075), transparent 31rem),
-          radial-gradient(circle at 10% 1%, rgba(75,220,241,.06), transparent 28rem),
-          radial-gradient(ellipse at 52% 110%, rgba(169,140,255,.07), transparent 34rem),
-          linear-gradient(180deg, #090b13 0%, var(--bg) 40rem);
+    radial-gradient(circle at 88% -8%, rgba(255,79,216,.075), transparent 31rem),
+    radial-gradient(circle at 10% 1%, rgba(75,220,241,.06), transparent 28rem),
+    radial-gradient(ellipse at 52% 110%, rgba(169,140,255,.07), transparent 34rem),
+    linear-gradient(180deg, #090b13 0%, var(--bg) 40rem);
   background-attachment: fixed;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.52;
@@ -68,8 +68,8 @@ body::before {
   height: 48vh;
   pointer-events: none;
   background-image:
-          linear-gradient(rgba(75,220,241,.055) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255,79,216,.05) 1px, transparent 1px);
+    linear-gradient(rgba(75,220,241,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,79,216,.05) 1px, transparent 1px);
   background-size: 42px 30px;
   transform: perspective(420px) rotateX(58deg) scale(1.16);
   transform-origin: center bottom;
@@ -111,11 +111,11 @@ button { font: inherit; }
   bottom: 0;
   height: 1px;
   background: linear-gradient(
-          90deg,
-          rgba(75,220,241,.34),
-          var(--line-strong) 30%,
-          rgba(169,140,255,.28) 62%,
-          rgba(255,79,216,.32) 100%
+    90deg,
+    rgba(75,220,241,.34),
+    var(--line-strong) 30%,
+    rgba(169,140,255,.28) 62%,
+    rgba(255,79,216,.32) 100%
   );
 }
 
@@ -131,11 +131,11 @@ button { font: inherit; }
   border-radius: 13px 13px 4px 4px;
   color: rgba(var(--tab-rgb), .78);
   background:
-          linear-gradient(180deg, rgba(var(--tab-rgb), .085), rgba(var(--tab-rgb), .022)),
-          #0a0e15;
+    linear-gradient(180deg, rgba(var(--tab-rgb), .085), rgba(var(--tab-rgb), .022)),
+    #0a0e15;
   box-shadow:
-          inset 0 1px 0 rgba(var(--tab-rgb), .09),
-          inset 0 -6px 12px rgba(0, 0, 0, .10);
+    inset 0 1px 0 rgba(var(--tab-rgb), .09),
+    inset 0 -6px 12px rgba(0, 0, 0, .10);
   font: 750 .69rem ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   letter-spacing: .075em;
   text-align: center;
@@ -173,11 +173,11 @@ button { font: inherit; }
   border-color: rgba(var(--tab-rgb), .54);
   border-bottom-color: transparent;
   background:
-          linear-gradient(180deg, rgba(var(--tab-rgb), .16), rgba(var(--tab-rgb), .045) 62%, transparent),
-          #0a0e15;
+    linear-gradient(180deg, rgba(var(--tab-rgb), .16), rgba(var(--tab-rgb), .045) 62%, transparent),
+    #0a0e15;
   box-shadow:
-          inset 0 1px 0 rgba(var(--tab-rgb), .22),
-          0 -3px 12px rgba(var(--tab-rgb), .045);
+    inset 0 1px 0 rgba(var(--tab-rgb), .22),
+    0 -3px 12px rgba(var(--tab-rgb), .045);
 }
 
 /* Covers the drawer rail directly beneath the selected tab. */
@@ -220,8 +220,8 @@ button { font: inherit; }
   letter-spacing: .01em;
   text-transform: lowercase;
   text-shadow:
-          -1px 0 rgba(75,220,241,.075),
-          1px 0 rgba(255,79,216,.09);
+    -1px 0 rgba(75,220,241,.075),
+    1px 0 rgba(255,79,216,.09);
 }
 
 .module-icon-emoji {
@@ -263,18 +263,17 @@ button { font: inherit; }
   --header-color: var(--magenta);
 }
 
-.effects-page { --header-color: var(--orange); }
 .modifiers-page { --header-color: var(--magenta); }
 .vanilla-set-page { --header-color: var(--vanilla-cream); }
 
 .vanilla-set-page .module-title {
   color: transparent;
   background: linear-gradient(
-          90deg,
-          var(--vanilla-white) 0%,
-          var(--vanilla-cream) 34%,
-          var(--vanilla-tan) 67%,
-          var(--vanilla-brown) 100%
+    90deg,
+    var(--vanilla-white) 0%,
+    var(--vanilla-cream) 34%,
+    var(--vanilla-tan) 67%,
+    var(--vanilla-brown) 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -317,8 +316,8 @@ button { font: inherit; }
   border: 1px solid var(--line-strong);
   background: rgba(8,10,16,.46);
   box-shadow:
-          inset 1px 1px 0 rgba(255,255,255,.022),
-          inset -1px -1px 0 rgba(0,0,0,.34);
+    inset 1px 1px 0 rgba(255,255,255,.022),
+    inset -1px -1px 0 rgba(0,0,0,.34);
 }
 
 .wiki-home-page .project-group,
@@ -532,11 +531,11 @@ button { font: inherit; }
   padding-top: 13px;
   border-top: 1px solid transparent;
   border-image: linear-gradient(
-          90deg,
-          rgba(105,183,255,.18),
-          rgba(169,140,255,.16),
-          rgba(255,79,216,.12),
-          transparent 82%
+    90deg,
+    rgba(105,183,255,.18),
+    rgba(169,140,255,.16),
+    rgba(255,79,216,.12),
+    transparent 82%
   ) 1;
   color: color-mix(in srgb, var(--dim) 82%, var(--muted));
   font: 650 .52rem/1.55 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;

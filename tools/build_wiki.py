@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 # Build the public Wiki from the small JSON catalogs.
 # Projects sit above categories so every project can grow its own Wiki structure.
-# Nada Vfx currently has Effects, Modifiers and Vanilla Set.
+# Nada Vfx currently exposes Modifiers and Vanilla Set.
 
 from __future__ import annotations
 
 import html
 import json
+import shutil
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -82,7 +83,7 @@ def site_footer(*, valheim: bool = False) -> str:
     ]
     if valheim:
         parts.append(
-            '<p>Valheim © Iron Gate AB. Nada VFX is an independent project and is not affiliated with Iron Gate.</p>'
+            '<p>Valheim © Iron Gate AB. Nada Vfx is an independent project and is not affiliated with Iron Gate.</p>'
         )
     parts.append('</footer>')
     return ''.join(parts)
@@ -123,8 +124,7 @@ def project_selector() -> str:
     ]
 
     for status in ("active", "archived"):
-        label = status.title()
-        parts.append(f'<optgroup label="{label}">')
+        parts.append(f'<optgroup label="{status.title()}">')
         for project in projects:
             if project["status"] != status:
                 continue
@@ -145,12 +145,6 @@ def project_wiki_body(project: dict) -> str:
     upcoming = sum(1 for effect in effects if effect["availability"] == "Upcoming")
     return f'''
 <div class="wiki-track">
-  <a class="wiki-track-row effects" href="effects/index.html">
-    <img class="wiki-track-icon" src="../assets/ui/effects.svg" alt="" aria-hidden="true">
-    <span class="wiki-track-name">effects</span>
-    <span class="wiki-track-summary">Standalone effects and Orbitals.</span>
-    <span class="wiki-track-count">{len(effects)} entries · {available} available · {upcoming} upcoming</span>
-  </a>
   <a class="wiki-track-row modifiers" href="modifiers/index.html">
     <img class="wiki-track-icon" src="../assets/ui/modifiers.svg" alt="" aria-hidden="true">
     <span class="wiki-track-name">modifiers</span>
@@ -161,10 +155,32 @@ def project_wiki_body(project: dict) -> str:
     <img class="wiki-track-icon" src="../assets/ui/vanilla.svg" alt="" aria-hidden="true">
     <span class="wiki-track-name">vanilla set</span>
     <span class="wiki-track-summary">The original Valheim sources Nada Vfx rebuilds at runtime.</span>
-    <span class="wiki-track-count">{len(effects)} source entries</span>
+    <span class="wiki-track-count">{len(effects)} entries · {available} available · {upcoming} upcoming</span>
   </a>
 </div>
 '''
+
+
+def repo_link(project: dict) -> str:
+    if project["id"] != "nada-vfx":
+        return ""
+    return '''
+<p class="project-links">
+  <a class="project-repo-link" href="https://github.com/naomi-nada/nada-vfx-weapon" target="_blank" rel="noopener noreferrer">github.com/naomi-nada/nada-vfx-weapon</a>
+</p>
+'''
+
+
+def redirect_page(target: str) -> str:
+    safe_target = esc(target)
+    return (
+        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+        f'<meta http-equiv="refresh" content="0; url={safe_target}">'
+        f'<link rel="canonical" href="{safe_target}">'
+        '<meta name="robots" content="noindex"><title>Moved</title></head><body>'
+        f'<p>This page moved to <a href="{safe_target}">{safe_target}</a>.</p>'
+        '</body></html>'
+    )
 
 
 # ---- Wiki project selector -------------------------------------------------
@@ -180,44 +196,38 @@ for project in projects:
     page = shell(f'{project["name"]} — wiki', "wiki-project-page", 0)
     page += f'<div class="breadcrumb"><a href="index.html">wiki</a> / {esc(project["name"])}</div>'
     page += module_header(project["name"], project["description"], project["icon"], 0)
+    page += repo_link(project)
     page += project_wiki_body(project)
     page += site_footer(valheim=project["id"] == "nada-vfx") + '</main></body></html>'
     write(WIKI / f'{project["id"]}.html', page)
 
 
-# ---- Effects ---------------------------------------------------------------
-page = shell("effects — Nada Vfx wiki", "effects-page", 1)
-page += '<div class="breadcrumb"><a href="../index.html">wiki</a> / <a href="../nada-vfx.html">Nada Vfx</a> / effects</div>'
-page += module_header("effects", "Visual effects currently available or planned for Nada Vfx.", "effects.svg", 1)
+# ---- Vanilla Set -----------------------------------------------------------
+vanilla_dir = WIKI / "vanilla-set"
+if vanilla_dir.exists():
+    shutil.rmtree(vanilla_dir)
+vanilla_dir.mkdir(parents=True, exist_ok=True)
 
-for category in ("Standalone", "Orbital"):
-    page += f'<h2 class="section-title" id="{category.lower()}">{category} effects</h2><div class="section-rule"></div><div class="grid">'
-    for effect in effects:
-        if effect["category"] != category:
-            continue
-        modifier_count = len(effect["modifiers"]) if effect["modifiers"] else "—"
-        page += f'''
-<a class="card" data-update-key="effect:{esc(effect['id'])}" href="{esc(effect['id'])}.html">
-  <div class="card-body">
-    <div class="card-top">
-      <h3>{esc(effect['name'])}</h3>
-      <span class="tag {effect['availability'].lower()}">{esc(effect['availability'])}</span>
-    </div>
-    <p>{esc(effect['description'])}</p>
-    <div class="card-meta"><span>{modifier_count} modifiers</span><span>{esc(effect['category'])}</span></div>
-    <div class="card-source"><div class="label">Vanilla source</div><div class="value">{esc(source_text(effect))}</div></div>
-  </div>
+page = shell("vanilla set — Nada Vfx wiki", "vanilla-set-page", 0)
+page += '<div class="breadcrumb"><a href="index.html">wiki</a> / <a href="nada-vfx.html">Nada Vfx</a> / vanilla set</div>'
+page += module_header("vanilla set", "The vanilla Valheim sources Nada Vfx rebuilds at runtime.", "vanilla.svg", 0)
+page += '<p class="vanilla-note">Each source entry shows the original in-game source Nada Vfx works from. Original Valheim visual assets are by Iron Gate unless otherwise noted.</p><div class="list">'
+for effect in effects:
+    page += f'''
+<a class="list-row" data-update-key="effect:{esc(effect['id'])}" href="vanilla-set/{esc(effect['id'])}.html">
+  <div><div class="list-name">{esc(effect['name'])}</div><div class="muted">{esc(effect['category'])}</div></div>
+  <div><span class="tag {effect['availability'].lower()}">{esc(effect['availability'])}</span></div>
+  <div><div class="label">Vanilla source</div><div class="list-source">{esc(source_text(effect))}</div></div>
 </a>
 '''
-    page += '</div>'
-page += site_footer(valheim=True) + '</main></body></html>'
-write(WIKI / "effects" / "index.html", page)
+page += '</div>' + site_footer(valheim=True) + '</main></body></html>'
+write(WIKI / "vanilla-set.html", page)
 
 for effect in effects:
     source = effect["source"]
-    page = shell(f'{effect["name"]} — Nada Vfx wiki', "effects-page", 1)
-    page += f'<div class="breadcrumb"><a href="../index.html">wiki</a> / <a href="../nada-vfx.html">Nada Vfx</a> / <a href="index.html">effects</a> / {esc(effect["name"])}</div>'
-    page += module_header(effect["name"], effect["description"], "effects.svg", 1, update_key=f"effect:{effect['id']}")
+    page = shell(f'{effect["name"]} — Nada Vfx wiki', "vanilla-set-page", 1)
+    page += f'<div class="breadcrumb"><a href="../index.html">wiki</a> / <a href="../nada-vfx.html">Nada Vfx</a> / <a href="../vanilla-set.html">vanilla set</a> / {esc(effect["name"])}</div>'
+    page += module_header(effect["name"], effect["description"], "vanilla.svg", 1, update_key=f"effect:{effect['id']}")
     page += f'''
 <div class="detail-hero">
   <div class="preview">Preview clip coming</div>
@@ -234,24 +244,17 @@ for effect in effects:
     else:
         page += '<span class="chip">To be defined</span>'
     page += '</div>' + site_footer(valheim=True) + '</main></body></html>'
-    write(WIKI / "effects" / f'{effect["id"]}.html', page)
+    write(vanilla_dir / f'{effect["id"]}.html', page)
 
 
-# ---- Vanilla Set -----------------------------------------------------------
-page = shell("vanilla set — Nada Vfx wiki", "vanilla-set-page", 0)
-page += '<div class="breadcrumb"><a href="index.html">wiki</a> / <a href="nada-vfx.html">Nada Vfx</a> / vanilla set</div>'
-page += module_header("vanilla set", "The vanilla Valheim sources Nada Vfx rebuilds at runtime.", "vanilla.svg", 0)
-page += '<p class="vanilla-note">Each source entry shows the original in-game source Nada Vfx works from. Original Valheim visual assets are by Iron Gate unless otherwise noted.</p><div class="list">'
+# ---- Legacy Effects redirects ----------------------------------------------
+effects_dir = WIKI / "effects"
+if effects_dir.exists():
+    shutil.rmtree(effects_dir)
+effects_dir.mkdir(parents=True, exist_ok=True)
+write(effects_dir / "index.html", redirect_page("../vanilla-set.html"))
 for effect in effects:
-    page += f'''
-<a class="list-row" data-update-key="effect:{esc(effect['id'])}" href="effects/{esc(effect['id'])}.html">
-  <div><div class="list-name">{esc(effect['name'])}</div><div class="muted">{esc(effect['category'])}</div></div>
-  <div><span class="tag {effect['availability'].lower()}">{esc(effect['availability'])}</span></div>
-  <div><div class="label">Vanilla source</div><div class="list-source">{esc(source_text(effect))}</div></div>
-</a>
-'''
-page += '</div>' + site_footer(valheim=True) + '</main></body></html>'
-write(WIKI / "vanilla-set.html", page)
+    write(effects_dir / f'{effect["id"]}.html', redirect_page(f'../vanilla-set/{effect["id"]}.html'))
 
 
 # ---- Modifiers -------------------------------------------------------------
@@ -290,7 +293,7 @@ for modifier in modifiers:
 '''
     for effect in applies_to:
         page += f'''
-<a class="card" data-update-key="effect:{esc(effect['id'])}" href="../effects/{esc(effect['id'])}.html">
+<a class="card" data-update-key="effect:{esc(effect['id'])}" href="../vanilla-set/{esc(effect['id'])}.html">
   <div class="card-body">
     <div class="card-top"><h3>{esc(effect['name'])}</h3><span class="tag {effect['availability'].lower()}">{esc(effect['availability'])}</span></div>
     <div class="card-source"><div class="label">Vanilla source</div><div class="value">{esc(source_text(effect))}</div></div>
@@ -302,4 +305,7 @@ for modifier in modifiers:
     page += '</div>' + site_footer(valheim=True) + '</main></body></html>'
     write(WIKI / "modifiers" / f'{modifier["id"]}.html', page)
 
-print(f"Built {len(effects)} effect pages, {len(modifiers)} modifier pages, {len(projects)} project Wiki landings, and the Wiki selector.")
+print(
+    f"Built {len(effects)} Vanilla Set entries, {len(modifiers)} modifier pages, "
+    f"{len(projects)} project Wiki landings, the Wiki selector, and legacy redirects."
+)

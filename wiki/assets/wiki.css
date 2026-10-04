@@ -50,7 +50,6 @@
   white-space: nowrap;
 }
 
-.wiki-track-row.effects .wiki-track-name { color: var(--orange); }
 .wiki-track-row.modifiers .wiki-track-name { color: var(--magenta); }
 .wiki-track-row.vanilla .wiki-track-name { color: var(--vanilla-cream); }
 
